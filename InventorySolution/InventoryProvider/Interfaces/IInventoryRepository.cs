@@ -6,6 +6,6 @@ namespace InventoryProvider.Interfaces
     {
         Task<List<InventoryEntity>> GetAllAsync();
         Task<InventoryEntity?> GetByIdAsync(int id);
-        //Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(InventoryEntity entity);
     }
 }

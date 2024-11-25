@@ -24,7 +24,20 @@ namespace InventoryProvider.Repositories
                 return null!;
             }
         }
-        
+
+        public async Task<bool> SaveAsync()
+        {
+            try
+            {
+                var result = await _context.SaveChangesAsync();
+                return result > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<InventoryEntity> SaveAsync(InventoryEntity entity)
         {
             try
@@ -40,9 +53,15 @@ namespace InventoryProvider.Repositories
             }
         }
 
-        //public Task<bool> DeleteAsync(int id)
-        //{
-        //    return;
-        //}
+        public async Task<bool> DeleteAsync(InventoryEntity entity)
+        {
+            if (entity == null)
+            {
+                return false;
+            }
+            _context.Inventories.Remove(entity);
+             var result = await SaveAsync();
+            return result;
+        }
     }
 }

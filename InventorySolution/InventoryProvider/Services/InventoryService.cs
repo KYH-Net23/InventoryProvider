@@ -10,14 +10,14 @@ namespace InventoryProvider.Services
     {
         private readonly List<InventoryModel> _inventory = new();
         private readonly InventoryRepository? _repository;
-        public Task<List<InventoryModel>> GetAllInventoriesAsync()
+        public async Task<List<InventoryModel>> GetAllInventoriesAsync()
         {
-            return Task.FromResult(_inventory);
+            return await Task.FromResult(_inventory);
         }
-        public Task<InventoryModel?> GetInventoryByIdAsync(int id)
+        public async Task<InventoryModel?> GetInventoryByIdAsync(int id)
         {
             var inventory = _inventory.FirstOrDefault(x => x.Id == id);
-            return Task.FromResult(inventory);
+            return await Task.FromResult(inventory);
         }
         public async Task<InventoryModel> CreateInventoryAsync(InventoryModel model)
         {
@@ -41,15 +41,46 @@ namespace InventoryProvider.Services
 
             return model;
         }
-        //public Task<InventoryModel> UpdateInventoryAsync()
-        //{
+        public async Task<int> UpdateInventoryAsync(int id, InventoryModel model)
+        {
+            try
+            {
+                int statuscode = 1;
+                var existingInventory = await _repository.GetByIdAsync(id);
 
-        //    return;
-        //}
+                if (existingInventory != null)
+                {
+                    InventoryFactory.MapExistingEntityFromModel(ref existingInventory, model);
+                    var result = await _repository.SaveAsync();
 
-        //public Task<bool> DeleteInventoryAsync(int id)
-        //{
-        //    return;
-        //}
+                    if(result)
+                    {
+                        statuscode = 1;
+                    }
+                    else
+                    {
+                        statuscode = 0;
+                    }
+
+                }
+                return statuscode;
+            }
+            catch 
+            {
+                return 2;
+            }
+        }
+
+        public async Task<bool> DeleteInventoryAsync(int id)
+        {
+            var inventory = await _repository.GetByIdAsync(id);
+            if (inventory == null)
+            {
+                return false;
+            }
+            var result = await _repository.DeleteAsync(inventory);
+
+            return result;
+        }
     }
 }

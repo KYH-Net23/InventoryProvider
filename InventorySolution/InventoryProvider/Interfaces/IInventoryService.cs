@@ -7,8 +7,8 @@ namespace InventoryProvider.Interfaces
         Task<List<InventoryModel>> GetAllInventoriesAsync();
         Task<InventoryModel?> GetInventoryByIdAsync(int id);
         Task<InventoryModel> CreateInventoryAsync(InventoryModel model);
-        //Task<InventoryModel> UpdateInventoryAsync();
-        //Task<bool> DeleteInventoryAsync(int id); 
- 
+        Task<InventoryModel> UpdateInventoryAsync();
+        Task<bool> DeleteInventoryAsync(int id);
+
     }
 }
