@@ -1,6 +1,11 @@
-﻿namespace InventoryProvider.Interfaces
+﻿using InventoryProvider.Models;
+
+namespace InventoryProvider.Interfaces
 {
-    public class IInventoryRepository
+    public interface IInventoryRepository
     {
+        Task<List<InventoryEntity>> GetAllAsync();
+        Task<InventoryEntity?> GetByIdAsync(int id);
+        //Task<bool> DeleteAsync(int id);
     }
 }

@@ -1,6 +1,19 @@
-﻿namespace InventoryProvider.Contexts
+﻿using InventoryProvider.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace InventoryProvider.Contexts
 {
-    public class InventoryContext
+    public class InventoryContext : DbContext
     {
+        protected InventoryContext() 
+        {
+        }
+
+        public InventoryContext(DbContextOptions<InventoryContext> options) : base(options)
+        {
+
+        }
+
+        public virtual DbSet<InventoryEntity> Inventories { get; set; }
     }
 }
