@@ -2,24 +2,25 @@
 using InventoryProvider.Interfaces;
 using InventoryProvider.Models;
 using InventoryProvider.Repositories;
+using InventoryProvider.Responses;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace InventoryProvider.Services
 {
-    public class InventoryService : IInventoryService
+    public class InventoryService(IInventoryRepository repository) : IInventoryService
     {
         private readonly List<InventoryModel> _inventory = new();
-        private readonly InventoryRepository? _repository;
+        private readonly IInventoryRepository? _repository = repository;
+
         public async Task<List<InventoryModel>> GetAllInventoriesAsync()
         {
             return await Task.FromResult(_inventory);
         }
-        public async Task<InventoryModel?> GetInventoryByIdAsync(int id)
+        public async Task<InventoryEntity?> GetInventoryByIdAsync(int id)
         {
-            var inventory = _inventory.FirstOrDefault(x => x.Id == id);
-            return await Task.FromResult(inventory);
+            return await _repository.GetByIdAsync(id);
         }
-        public async Task<InventoryModel> CreateInventoryAsync(InventoryModel model)
+        public async Task<string> CreateInventoryAsync(InventoryModel model)
         {
             try
             {
@@ -28,24 +29,23 @@ namespace InventoryProvider.Services
                 try
                 {
                     var result = await _repository.SaveAsync(entity);
+                    return ResultResponse.Success;
                 }
-                catch (Exception ex) 
+                catch 
                 {
-                    Console.WriteLine(ex.Message);
+                    return ResultResponse.Failed;
                 }
             }
             catch
             {
-                return null!;
+                return ResultResponse.Failed;
             }
-
-            return model;
         }
         public async Task<int> UpdateInventoryAsync(int id, InventoryModel model)
         {
             try
             {
-                int statuscode = 1;
+                int statuscode = -1;
                 var existingInventory = await _repository.GetByIdAsync(id);
 
                 if (existingInventory != null)

@@ -1,6 +1,7 @@
 ﻿using InventoryProvider.Contexts;
 using InventoryProvider.Interfaces;
 using InventoryProvider.Models;
+using InventoryProvider.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryProvider.Repositories
@@ -38,18 +39,18 @@ namespace InventoryProvider.Repositories
             }
         }
 
-        public async Task<InventoryEntity> SaveAsync(InventoryEntity entity)
+        public async Task<string> SaveAsync(InventoryEntity entity)
         {
             try
             {
                 entity.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
                 await _context.Inventories.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return entity;
+                return ResultResponse.Success;
             }
             catch
             {
-                return null!;
+                return ResultResponse.Failed;
             }
         }
 
