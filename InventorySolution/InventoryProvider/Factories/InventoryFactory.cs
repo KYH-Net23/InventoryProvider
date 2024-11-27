@@ -18,7 +18,7 @@ namespace InventoryProvider.Factories
                 Id = inventory.Id,
                 InventoryName = inventory.InventoryName,
                 StoreName = inventory.StoreName,
-                Location = inventory.Location,
+                Location = LocationFactory.CreateLocationViewModel(inventory.Location),
                 Description = inventory.Description,
                 Capacity = inventory.Capacity,
 
@@ -30,7 +30,7 @@ namespace InventoryProvider.Factories
             {
                 InventoryName = model.InventoryName,
                 StoreName = model.StoreName,
-                Location = model.Location,
+                Location = LocationFactory.CreateLocationModel(model.Location),
                 Description = model.Description,
                 Capacity = model.Capacity,
                 IsActive = model.IsActive,
@@ -42,7 +42,15 @@ namespace InventoryProvider.Factories
         {
             entity.InventoryName = model.InventoryName;
             entity.StoreName = model.StoreName;
-            entity.Location = model.Location;
+            if (entity.Location == null)
+            {
+                entity.Location = new Location();
+            }
+            entity.Location.Country = model.Location.Country;
+            entity.Location.StreetAddress = model.Location.StreetAddress;
+            entity.Location.City = model.Location.City;
+            entity.Location.ZipCode = model.Location.ZipCode;
+
             entity.Description = model.Description;
             entity.Capacity = model.Capacity;
             entity.IsActive = model.IsActive;

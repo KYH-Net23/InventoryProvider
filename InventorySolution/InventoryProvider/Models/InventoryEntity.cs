@@ -14,7 +14,7 @@ namespace InventoryProvider.Models
         public string StoreName { get; set; } = null!;
 
         [Required(ErrorMessage = "Location is required.")]
-        public string Location { get; set; } = null!;
+        public Location Location { get; set; } = null!;
 
         [Required(ErrorMessage = "Description is required.")]
         public string? Description { get; set; }

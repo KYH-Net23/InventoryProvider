@@ -15,7 +15,7 @@ namespace InventoryProvider.Models
         public string StoreName { get; set; } = null!;
 
         [Required(ErrorMessage = "Location is required.")]
-        public string Location {  get; set; } = null!;
+        public LocationModel Location {  get; set; } = null!;
 
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(200, ErrorMessage = "Description cannot exceed 200 characters.")]

@@ -29,9 +29,23 @@ namespace InventoryProvider.Tests.Services
         public async Task CreateInventoryAsync_WhenSaveIsSuccessful_ReturnsSuccess()
         {
             // Arrange
-            var inventoryModel = new InventoryModel();
+            var inventoryModel = new InventoryModel
+            {
+                InventoryName = "Test Inventory",
+                StoreName = "Test Store",
+                Location = new LocationModel
+                {
+                    Country = "Test Country",
+                    StreetAddress = "Test Address",
+                    City = "Test City",
+                    ZipCode = "12345"
+                },
+                Description = "Test description",
+                CreatedDate = DateOnly.FromDateTime(DateTime.Now)
+            };
+
             var inventoryEntity = InventoryFactory.CreateInventory(inventoryModel);
-            inventoryEntity.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
+
             _mockRepo
                 .Setup(repo => repo.SaveAsync(It.IsAny<InventoryEntity>()))
                 .ReturnsAsync("Success");
@@ -97,7 +111,13 @@ namespace InventoryProvider.Tests.Services
             {
                 InventoryName = "Test name",
                 StoreName = "Test store",
-                Location = "Test location",
+                Location = new LocationModel
+                {
+                    Country = "Hungary",
+                    City = "Debrecen",
+                    StreetAddress = "DebrecenStreet 12",
+                    ZipCode = "11343"
+                },
                 Description = "Test description",
                 LastUpdatedDate = DateOnly.FromDateTime(DateTime.Now)
             };
@@ -139,7 +159,13 @@ namespace InventoryProvider.Tests.Services
             {
                 InventoryName = "Test name",
                 StoreName = "Test store",
-                Location = "Test location",
+                Location = new LocationModel
+                {
+                    Country = "Hungary",
+                    City = "Debrecen",
+                    StreetAddress = "DebrecenStreet 12",
+                    ZipCode = "11343"
+                },
                 Description = "Test description",
                 LastUpdatedDate = DateOnly.FromDateTime(DateTime.Now)
             };
