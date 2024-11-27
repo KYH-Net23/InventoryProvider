@@ -45,6 +45,7 @@ namespace InventoryProvider.Factories
             entity.Location = model.Location;
             entity.Description = model.Description;
             entity.Capacity = model.Capacity;
+            entity.IsActive = model.IsActive;
             entity.LastUpdatedDate = DateOnly.FromDateTime(DateTime.Now);
         }
     }
