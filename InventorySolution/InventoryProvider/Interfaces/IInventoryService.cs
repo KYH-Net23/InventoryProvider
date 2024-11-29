@@ -4,7 +4,7 @@ namespace InventoryProvider.Interfaces
 {
     public interface IInventoryService
     {
-        Task<List<InventoryModel>> GetAllInventoriesAsync();
+        Task<List<InventoryEntity>> GetAllInventoriesAsync();
         Task<InventoryEntity?> GetInventoryByIdAsync(int id);
         Task<string> CreateInventoryAsync(InventoryModel model);
         Task<int> UpdateInventoryAsync(int id, InventoryModel model);
