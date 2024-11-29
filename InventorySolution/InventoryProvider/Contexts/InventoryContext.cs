@@ -5,9 +5,6 @@ namespace InventoryProvider.Contexts
 {
     public class InventoryContext : DbContext
     {
-        protected InventoryContext() 
-        {
-        }
 
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options)
         {
@@ -15,5 +12,6 @@ namespace InventoryProvider.Contexts
         }
 
         public virtual DbSet<InventoryEntity> Inventories { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
     }
 }

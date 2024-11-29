@@ -4,6 +4,7 @@ namespace InventoryProvider.Models
 {
     public class Location
     {
+        public int Id { get; set; }
         [Required]
         public string Country { get; set; } = null!;
 
