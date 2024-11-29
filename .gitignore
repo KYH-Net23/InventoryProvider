@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/InventorySolution/InventoryProvider/Properties/ServiceDependencies/rika-inventory-api - Web Deploy
+/InventorySolution/InventoryProvider/Properties/serviceDependencies.rika-inventory-api - Web Deploy.json
+/InventorySolution/InventoryProvider/Properties/serviceDependencies.json
