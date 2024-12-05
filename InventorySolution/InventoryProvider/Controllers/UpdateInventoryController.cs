@@ -9,7 +9,7 @@ namespace InventoryProvider.Controllers
     public class UpdateInventoryController(IInventoryService service) : ControllerBase
     {
         private readonly IInventoryService _service = service;
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] InventoryModel updateProduct)
         {
             try

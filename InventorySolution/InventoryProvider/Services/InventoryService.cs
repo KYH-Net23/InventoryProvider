@@ -9,12 +9,12 @@ namespace InventoryProvider.Services
 {
     public class InventoryService(IInventoryRepository repository) : IInventoryService
     {
-        private readonly List<InventoryModel> _inventory = new();
+        
         private readonly IInventoryRepository? _repository = repository;
 
-        public async Task<List<InventoryModel>> GetAllInventoriesAsync()
+        public async Task<List<InventoryEntity>> GetAllInventoriesAsync()
         {
-            return await Task.FromResult(_inventory);
+            return await _repository.GetAllAsync();
         }
         public async Task<InventoryEntity?> GetInventoryByIdAsync(int id)
         {

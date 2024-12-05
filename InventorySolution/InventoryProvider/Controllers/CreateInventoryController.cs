@@ -1,5 +1,6 @@
 ﻿using InventoryProvider.Interfaces;
 using InventoryProvider.Models;
+using InventoryProvider.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryProvider.Controllers
@@ -15,11 +16,19 @@ namespace InventoryProvider.Controllers
             try
             {
                 var result = await _service.CreateInventoryAsync(model);
-                return Ok(result);
+
+                if (result == ResultResponse.Success)
+                {
+                    return Ok(ResultResponse.SuccessResponse());
+                }
+                else
+                {
+                    return StatusCode(500, ResultResponse.FailedResponse());
+                }
             }
             catch
             {
-                return BadRequest();
+                return StatusCode(500, new { message = "An unexpected error occurred" });
             }
         }
     }

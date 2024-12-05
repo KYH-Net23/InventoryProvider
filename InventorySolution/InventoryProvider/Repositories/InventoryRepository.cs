@@ -12,13 +12,17 @@ namespace InventoryProvider.Repositories
 
         public async Task<List<InventoryEntity>> GetAllAsync()
         {
-            return await _context.Inventories.ToListAsync();
+            return await _context.Inventories
+                .Include(x => x.Location)
+                .ToListAsync();
         }
         public async Task<InventoryEntity?> GetByIdAsync(int id)
         {
             try
             {
-                return await _context.Inventories.FindAsync(id);
+                return await _context.Inventories
+                    .Include(x => x.Location)
+                    .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch 
             { 
