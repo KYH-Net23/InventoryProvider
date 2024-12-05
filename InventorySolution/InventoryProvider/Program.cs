@@ -21,8 +21,8 @@ builder.Services.AddCors(o =>
     builder =>
     {
         builder.AllowAnyOrigin()
-        .WithMethods("PUT")
-        .AllowAnyHeader();
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     }));
 
 var app = builder.Build();
